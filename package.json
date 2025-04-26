@@ -1,0 +1,89 @@
+{
+  "publisher": "chengyuhe",
+  "name": "heyi-tool",
+  "displayName": "autosync",
+  "description": "auto sync file to linux device when ctrl+s",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/your-repo.git"
+  },
+  "license": "MIT",
+  "icon": "icon/auto_sync.png",
+  "engines": {
+    "vscode": "^1.91.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "heyi-tool.autosync",
+      "title": "autosync"
+    }],
+	"configuration": {
+		"title": "Auto SYNC Uploader",
+		"properties": {
+			"autoSyncUploader.enabled": {
+				"type": "boolean",
+				"default": true,
+				"description": "启用/禁用自动SCP上传"
+			},
+			"autoSyncUploader.localPath": {
+				"type": "string",
+				"default": "/home/hcy/code/s100/source/hobot-sp-samples/debian/app/multimedia_demo/camsys_demo/",
+				"description": "本地目录路径"
+			},
+			"autoSyncUploader.excludePatterns": {
+				"type": "array",
+				"items": {
+				  "type": "string"
+				},
+				"default": [],
+				"description": "指定本地目录中不需要同步的路径（支持 glob 模式）"
+			},
+			"autoSyncUploader.remoteHost": {
+				"type": "string",
+				"default": "root@192.168.1.10",
+				"description": "远程主机地址 (用户名@主机名)"
+			},
+			"autoSyncUploader.remotePath": {
+				"type": "string",
+				"default": "/userdata/",
+				"description": "远程目录路径"
+			},
+			"autoSyncUploader.identityFile": {
+				"type": "string",
+				"default": "~/.ssh/id_rsa",
+				"description": "ssh密钥文件的路径"
+			},
+				"autoSyncUploader.enableDelete": {
+				"type": "boolean",
+				"default": false,
+				"description": "是否启用删除模式（同步时删除目标端多余文件）"
+        	},
+			"autoSyncUploader.port": {
+				"type": "number",
+				"default": 22,
+				"description": "SSH端口号"
+			}
+		}
+	}
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.91.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.23.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
