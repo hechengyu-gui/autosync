@@ -22,6 +22,15 @@ ssh-copy-id root@192.168.1.10
 #3. Test password-less login
 ssh root@192.168.1.10  # No password required no
 ```
+## Commands
+The extension provides these VSCode commands:
+1. `autosync`
+   - **Activation command**: Enables the auto-sync feature
+   - Once activated, changed files will be automatically synchronized to the configured remote server when saved
+2. `autosync.toggle`
+   - **Toggle command**: Switches the active state of auto-syncing
+   - Allows temporarily disabling sync without changing the configuration
+   - Running when active will pause synchronization
 
 ## Extension Settings
 

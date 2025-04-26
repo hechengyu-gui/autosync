@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 // Your extension is activated the very first time the command is executed
 
 // 插件配置项
-const config = vscode.workspace.getConfiguration('autoSyncUploader');
+let config = vscode.workspace.getConfiguration('autoSyncUploader');
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -31,6 +31,7 @@ function activate(context) {
 
 	let disposableOnSave = vscode.workspace.onDidSaveTextDocument(async (document) => {
         if (!config.enabled) {
+			vscode.window.setStatusBarMessage(`AutoSync is diabled`, 5000);
             return;
         }
 
@@ -88,16 +89,27 @@ function activate(context) {
     context.subscriptions.push(disposableOnSave);
 
 
-	let toggleCommand = vscode.commands.registerCommand('autoSyncUploader.toggle', function () {
+	let toggleCommand = vscode.commands.registerCommand('heyi-tool.autosync.toggle', function () {
         const newState = !config.enabled;
         config.update('enabled', newState, vscode.ConfigurationTarget.Global)
             .then(() => {
-                const message = `自动SCP上传 ${newState ? '已启用' : '已禁用'}`;
+                const message = `自动rsync上传 ${newState ? '已启用' : '已禁用'}`;
                 vscode.window.showInformationMessage(message);
                 console.log(message);
+				config = vscode.workspace.getConfiguration('autoSyncUploader');
             });
     });
 	context.subscriptions.push(toggleCommand);
+
+	// 在插件的 activate 函数中注册配置监听
+	context.subscriptions.push(
+		vscode.workspace.onDidChangeConfiguration(e => {
+            if (e.affectsConfiguration('autoSyncUploader')) {
+                config = vscode.workspace.getConfiguration('autoSyncUploader'); // 更新引用
+                console.log('配置已更新');
+            }
+        })
+	);
 }
 
 // This method is called when your extension is deactivated

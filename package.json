@@ -6,9 +6,9 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/your-repo.git"
+    "url": "https://github.com/hechengyu-gui/autosync.git"
   },
-  "license": "MIT",
+  "LICENSE": "MIT",
   "icon": "icon/auto_sync.png",
   "engines": {
     "vscode": "^1.91.1"
@@ -20,10 +20,16 @@
   ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "heyi-tool.autosync",
-      "title": "autosync"
-    }],
+    "commands": [
+		{
+			"command": "heyi-tool.autosync",
+			"title": "autosync"
+		},
+		{
+			"command": "heyi-tool.autosync.toggle",
+			"title": "autosync.toggle"
+		}
+	],
 	"configuration": {
 		"title": "Auto SYNC Uploader",
 		"properties": {
